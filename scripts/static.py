@@ -10,7 +10,7 @@ __status__ = 'Development'
 
 BASE_DIR = os.path.abspath(os.path.join(__file__, '..\..\..'))
 
-STATIC = os.path.join(BASE_DIR, "static")
+STATIC = os.path.join(BASE_DIR, "dev\static")
 JSONFOLDER = os.path.join(STATIC, "json")
 SHPFOLDER = os.path.join(STATIC, "shp")
 IMGFOLDER = os.path.join(STATIC, "img")

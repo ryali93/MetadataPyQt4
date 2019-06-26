@@ -2,13 +2,14 @@
 
 import sys
 from scripts.index import *
-from scripts.fichaMetadato import *
-from scripts.validateFile import *
-from scripts.setjs import *
-from scripts.publishAgol import *
-from scripts.modifyXML import *
+from scripts.metadato_pdf import *
+from scripts.validate_file import *
+from scripts.function_js import *
+from scripts.publish_agol import *
+from scripts.update_xml import *
 from scripts.nls import *
 import zipfile
+
 
 class execute(QtGui.QMainWindow):
     def __init__(self):
@@ -27,34 +28,34 @@ class execute(QtGui.QMainWindow):
         self.datafile = None
         self.extent = None
 
-    #Lectura de datos
+    # Lectura de datos
     def readValues(self):
         self.dicc = {
-            "title" : u'%s'%self.ui.text01_title.text(),
-            "desc" : u'%s'%self.ui.text02_desc.toPlainText(),
-            "method" : u'%s'%self.ui.text03_method.toPlainText(),
-            "resp" : u'%s'%self.ui.text04_resp.text(),
-            "tags" : u'%s'%self.ui.text05_tags.text(),
-            "ubic" : u'%s'%self.ui.text06_ubic.text(),
-            "scale" : u'%s'%self.ui.text07_scale.text(),
-            "webpage" : u'%s'%self.ui.text08_webpage.text(),
-            "geocatmin" : u'%s'%self.ui.text09_geocatmin.text(),
-            "obs" : u'%s'%self.ui.text10_obs.toPlainText(),
+            "title": u'%s' % self.ui.text01_title.text(),
+            "desc": u'%s' % self.ui.text02_desc.toPlainText(),
+            "method": u'%s' % self.ui.text03_method.toPlainText(),
+            "resp": u'%s' % self.ui.text04_resp.text(),
+            "tags": u'%s' % self.ui.text05_tags.text(),
+            "ubic": u'%s' % self.ui.text06_ubic.text(),
+            "scale": u'%s' % self.ui.text07_scale.text(),
+            "webpage": u'%s' % self.ui.text08_webpage.text(),
+            "geocatmin": u'%s' % self.ui.text09_geocatmin.text(),
+            "obs": u'%s' % self.ui.text10_obs.toPlainText(),
 
-            "format": u'%s'%self.ui.cb01_format.currentText(),
-            "situation": u'%s'%self.ui.cb02_situation.currentText(),
-            "actualizacion": u'%s'%self.ui.cb03_update.currentText(),
-            "restriccion": u'%s'%self.ui.cb04_restr.currentText(),
-            "acceso": u'%s'%self.ui.cb05_access.currentText(),
-            "fecha": u'%s'%self.ui.date_edit.date().toString("dd / MMM / yyyy"),
+            "format": u'%s' % self.ui.cb01_format.currentText(),
+            "situation": u'%s' % self.ui.cb02_situation.currentText(),
+            "actualizacion": u'%s' % self.ui.cb03_update.currentText(),
+            "restriccion": u'%s' % self.ui.cb04_restr.currentText(),
+            "acceso": u'%s' % self.ui.cb05_access.currentText(),
+            "fecha": u'%s' % self.ui.date_edit.date().toString("dd / MMM / yyyy"),
 
-            "capa" : self.ui.ch03_capa.isChecked(),
-            "wms" : self.ui.ch04_wms.isChecked(),   
-            "shp" : self.ui.ch05_shp.isChecked(),
-            "kml" : self.ui.ch06_kml.isChecked(),
-            "opendata" : self.ui.ch07_opendata.isChecked(),
-            "csvxls" : self.ui.ch08_csvxls.isChecked(),
-            "other" : self.ui.ch09_other.isChecked()
+            "capa": self.ui.ch03_capa.isChecked(),
+            "wms": self.ui.ch04_wms.isChecked(),
+            "shp": self.ui.ch05_shp.isChecked(),
+            "kml": self.ui.ch06_kml.isChecked(),
+            "opendata": self.ui.ch07_opendata.isChecked(),
+            "csvxls": self.ui.ch08_csvxls.isChecked(),
+            "other": self.ui.ch09_other.isChecked()
         }
 
     # Validacion de datos
@@ -83,10 +84,14 @@ class execute(QtGui.QMainWindow):
         if self.datafile != None:
             self.addConsole("Leyendo archivo")
             dirname = SHPFOLDER
-            self.namefile = [os.path.splitext(os.path.join(dirname, x))[0] for x in os.listdir(dirname) if os.path.splitext(x)[1] == ".shp"]
-            filetozip = [os.path.join(dirname, x) for x in os.listdir(dirname) if (os.path.splitext(os.path.join(dirname, x))[0] == self.namefile[0] or os.path.splitext(x)[1] == ".xml") and os.path.splitext(x)[1] != ".zip"]
-            zp = zipfile.ZipFile(os.path.join(dirname, os.path.splitext(self.namefile[0])[0] + ".zip"), "w", zipfile.ZIP_DEFLATED)
-            [zp.write(x, os.path.basename(x))for x in filetozip]
+            self.namefile = [os.path.splitext(os.path.join(dirname, x))[0] for x in os.listdir(dirname) if
+                             os.path.splitext(x)[1] == ".shp"]
+            filetozip = [os.path.join(dirname, x) for x in os.listdir(dirname) if (
+            os.path.splitext(os.path.join(dirname, x))[0] == self.namefile[0] or os.path.splitext(x)[1] == ".xml") and
+                         os.path.splitext(x)[1] != ".zip"]
+            zp = zipfile.ZipFile(os.path.join(dirname, os.path.splitext(self.namefile[0])[0] + ".zip"), "w",
+                                 zipfile.ZIP_DEFLATED)
+            [zp.write(x, os.path.basename(x)) for x in filetozip]
             self.zipfile = os.path.join(dirname, os.path.splitext(self.namefile[0])[0] + ".zip")
         else:
             filetypes = "Map document (*.mxd);;Map package (*.mpk);;Zip (*.zip)"
@@ -129,6 +134,7 @@ class execute(QtGui.QMainWindow):
         self.console.append(text)
         self.ui.statusValue.setText('\n'.join(self.console))
         self.ui.statusValue.moveCursor(QtGui.QTextCursor.End)
+
 
 if __name__ == "__main__":
     app = QtGui.QApplication(sys.argv)

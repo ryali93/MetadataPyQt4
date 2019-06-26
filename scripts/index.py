@@ -7,7 +7,7 @@
 # WARNING! All changes made in this file will be lost!
 import os
 from PyQt4 import QtCore, QtGui, QtWebKit, QtNetwork
-from scripts.statics import *
+from scripts.static import *
 
 try:
     _fromUtf8 = QtCore.QString.fromUtf8
@@ -348,6 +348,7 @@ class Ui_MainWindow(object):
         self.view = QtWebKit.QWebView(self.centralwidget)
         self.view.setGeometry(QtCore.QRect(440, 30, 391, 441))
         self.view.setUrl(QtCore.QUrl(_fromUtf8(os.path.join(STATIC, 'index.html'))))
+        # self.view.setUrl(QtCore.QUrl(_fromUtf8('dev\static\index.html')))
         self.view.setObjectName(_fromUtf8("webView"))
 
         cache = QtNetwork.QNetworkDiskCache()
@@ -430,3 +431,4 @@ class Ui_MainWindow(object):
         with open(os.path.join(STATIC, 'index.js'), 'r') as f:
             frame = self.view.page().mainFrame()
             frame.evaluateJavaScript(f.read())
+

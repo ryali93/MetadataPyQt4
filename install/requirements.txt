@@ -7,4 +7,4 @@ install/modules/Fiona-1.8.4-cp36-cp36m-win_amd64.whl
 install/modules/PyQt4-4.11.4-cp36-cp36m-win_amd64.whl
 install/modules/Shapely-1.6.4.post1-cp36-cp36m-win_amd64.whl
 install/modules/pyproj-2.0.2-cp36-cp36m-win_amd64.whl
-install/modules/geopandas-0.4.0-py2.py3-none-any.whl
+install/modules/geopandas-0.4.1-py2.py3-none-any.whl

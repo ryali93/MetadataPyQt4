@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-from scripts.statics import *
+from scripts.static import *
 from scripts.nls import *
 import xlrd
 import pandas as pd

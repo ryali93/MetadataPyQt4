@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-from scripts.statics import *
+from scripts.static import *
 from reportlab.platypus import Image, Spacer, Table
 from reportlab.lib.pagesizes import A4
 from reportlab.lib import colors

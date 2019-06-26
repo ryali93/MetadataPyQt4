@@ -44,7 +44,7 @@ function rendererPoints(){
 		layer.bindPopup(feature.properties.ALTITUD);
 	}});
     map.addLayer(jsonLayer);
-    console.log("plus1");	
+    console.log("plus1");
 };
 
 jsonLayer = new L.GeoJSON(rows, {style: style,

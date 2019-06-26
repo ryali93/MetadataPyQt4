@@ -2,8 +2,8 @@
 
 import xml.etree.ElementTree as ET
 from xml.dom import minidom
-from scripts.model_metadatos import *
-from scripts.statics import *
+from scripts.metadato_model import *
+from scripts.static import *
 
 class MakeMetadata(object):
     def __init__(self, dicc, namefile, extent):
